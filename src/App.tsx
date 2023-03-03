@@ -2,7 +2,7 @@ import { styled } from '@mui/material/styles';
 import { Typography } from '@mui/material';
 import Container from '@mui/material/Container';
 import TableRow from '@mui/material/TableRow';
-import TableCell, { tableCellClasses } from '@mui/material/TableCell';
+import TableCell from '@mui/material/TableCell';
 import { VirtualizedList } from './components/VirtualizedList/VirtualizedList';
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
@@ -28,110 +28,6 @@ type row = {
   protein: number;
 }
 
-type RowProps = {
-  index: number;
-  itemHeight: number;
-}
-
-const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-];
-
-
-const Row = ({index, style}:any) => {
-  const cellSize = 240;
-  return (
-    <StyledTableRow key={`table-row-${index}`} style={style}>
-      <TableCell width={cellSize} component="th" scope="row">
-        {rows[index].name}
-      </TableCell>
-      <TableCell width={cellSize} align="right">{rows[index].calories}</TableCell>
-      <TableCell width={cellSize} align="right">{rows[index].fat}</TableCell>
-      <TableCell width={cellSize} align="right">{rows[index].carbs}</TableCell>
-      <TableCell width={cellSize} align="right">{rows[index].protein}</TableCell>
-    </StyledTableRow>
-  );
-};
-
 function createData(
   name: string,
   calories: number,
@@ -142,6 +38,18 @@ function createData(
   return { name, calories, fat, carbs, protein };
 }
 
+const randomNumbers = (min:number, max:number) => {
+  return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
+const rows = new Array(1000).fill(0).map((row, index) => createData(
+  `Food ${index}`,
+  randomNumbers(1, 2000),
+  randomNumbers(1, 100),
+  randomNumbers(1, 100),
+  randomNumbers(1, 100)
+));
+
 const columnData: Array<string> = [
   'Dessert (100g serving)',
   'Calories',
@@ -151,6 +59,22 @@ const columnData: Array<string> = [
 ]
 
 function App(): JSX.Element {
+
+  const Row = ({index, style}:any) => {
+    const cellSize = 240;
+    return (
+      <StyledTableRow key={`table-row-${index}`} style={style}>
+        <TableCell width={cellSize} component="th" scope="row">
+          {rows[index].name}
+        </TableCell>
+        <TableCell width={cellSize} align="right">{rows[index].calories}</TableCell>
+        <TableCell width={cellSize} align="right">{rows[index].fat}</TableCell>
+        <TableCell width={cellSize} align="right">{rows[index].carbs}</TableCell>
+        <TableCell width={cellSize} align="right">{rows[index].protein}</TableCell>
+      </StyledTableRow>
+    );
+  };
+
   return (
     <Container maxWidth="lg">
       <div className="App">
@@ -160,7 +84,7 @@ function App(): JSX.Element {
           </Typography>
         </header>
         <VirtualizedList
-          height={400}
+          height={600}
           itemHeight={52}
           renderItem={Row}
           itemCount={rows.length}
