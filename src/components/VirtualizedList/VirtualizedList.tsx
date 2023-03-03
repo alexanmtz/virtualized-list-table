@@ -17,6 +17,7 @@ type ListProps = {
   }) => ReactNode;
   itemCount?: number;
   columnData: Array<String>;
+  scrollingElement?: React.RefObject<HTMLElement>;
 }
 
 export const VirtualizedList:FunctionComponent<ListProps> = ({
@@ -24,12 +25,11 @@ export const VirtualizedList:FunctionComponent<ListProps> = ({
   itemHeight = 40,
   renderItem,
   itemCount = 0,
-  columnData
+  columnData,
+  scrollingElement
 }) => {
   const [topIndex, setTopIndex] = useState<number>(0);
   const [visibleItems, setVisibleItems] = useState<number[]>([]);
-  const preRenderPageCount = 1;
-  const reRenderCount = 1;
 
   const finalHeight = height ? height : itemHeight * itemCount;
 
@@ -41,9 +41,9 @@ export const VirtualizedList:FunctionComponent<ListProps> = ({
         return [];
       }
       const pageBottom =
-        scrollTop + (1 + (preRenderPageCount ?? 1)) * height;
+        scrollTop + 2 * height;
       const pageTop =
-        scrollTop - (preRenderPageCount ?? 1) * height;
+        scrollTop - height;
       for (let i = 0; i < itemCount; i++) {
         const curTop = visibleItems[i];
         const curBottom = visibleItems[i + 1];
@@ -69,7 +69,6 @@ export const VirtualizedList:FunctionComponent<ListProps> = ({
       height,
       itemCount,
       renderItem,
-      preRenderPageCount,
     ]
   );
 
@@ -96,7 +95,7 @@ export const VirtualizedList:FunctionComponent<ListProps> = ({
 
   useEffect(() => {
     calculatevisibleItems();
-  }, [reRenderCount, calculatevisibleItems]);
+  }, [calculatevisibleItems]);
 
   return (
     <VListWrapperStyle onScroll={handleScroll} data-testid="scrolling-element" height={finalHeight}>

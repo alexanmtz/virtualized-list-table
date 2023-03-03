@@ -20,6 +20,8 @@
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
+  position: relative;
+  margin-bottom: 28px;
 }
 
 .App-header-dark {
