@@ -40,7 +40,7 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 
 ## Considerations
 
-- When I was creating the logic for the component, and ended build the Virtualized list based on React Virtulize: https://github.com/junqiuzhang/react-virtualize, and customizing for a table.
+- When I was creating the logic for the component, and ended build the Virtualized list based on React Virtualize: https://github.com/junqiuzhang/react-virtualize, and I implemented all the customization to work for a table.
 
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
