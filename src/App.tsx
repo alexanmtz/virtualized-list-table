@@ -3,7 +3,7 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 
-import React, { useState, createRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { styled } from '@mui/material/styles';
 import { Typography } from '@mui/material';
 import Container from '@mui/material/Container';
@@ -14,7 +14,7 @@ import './App.css';
 
 import FormDialog from './components/Dialog/Dialog';
 
-const fakeDataRowsAmount:number = 10000000;
+const fakeDataRowsAmount:number = 1000;
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
   '&:nth-of-type(odd)': {
@@ -74,6 +74,7 @@ type formDataProps = {
 
 function App(): JSX.Element {
   const [ listRows, setListRows ] = useState<Array<row>>(rows);
+  const scrollRef = React.useRef<HTMLDivElement>(null)
 
   const onAdd = (formData:formDataProps) => {
     const newRow = createData(
@@ -84,6 +85,10 @@ function App(): JSX.Element {
       Number(formData.protein),
     );
     setListRows([...listRows, newRow]);
+    scrollRef.current?.scrollTo({
+      top: 100, // scroll to the bottom here
+      behavior: "smooth",
+    });
   }
 
   const Row = ({index, style}:any) => {
@@ -118,6 +123,7 @@ function App(): JSX.Element {
           renderItem={Row}
           itemCount={listRows.length}
           columnData={columnData}
+          scrollRef={scrollRef}
         />
       </div>
     </Container>

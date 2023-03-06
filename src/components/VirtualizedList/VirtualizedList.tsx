@@ -6,7 +6,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { TableCell } from '@mui/material';
+import { setRef, TableCell } from '@mui/material';
 
 type ListProps = {
   height?: number;
@@ -17,7 +17,7 @@ type ListProps = {
   }) => ReactNode;
   itemCount?: number;
   columnData: Array<String>;
-  scrollingElement?: React.RefObject<HTMLElement>;
+  scrollRef?: React.RefObject<HTMLDivElement> | null | undefined;
 }
 
 export const VirtualizedList:FunctionComponent<ListProps> = ({
@@ -26,7 +26,7 @@ export const VirtualizedList:FunctionComponent<ListProps> = ({
   renderItem,
   itemCount = 0,
   columnData,
-  scrollingElement
+  scrollRef
 }) => {
   const [topIndex, setTopIndex] = useState<number>(0);
   const [visibleItems, setVisibleItems] = useState<number[]>([]);
@@ -98,7 +98,7 @@ export const VirtualizedList:FunctionComponent<ListProps> = ({
   }, [calculatevisibleItems]);
 
   return (
-    <VListWrapperStyle onScroll={handleScroll} data-testid="scrolling-element" height={finalHeight}>
+    <VListWrapperStyle onScroll={handleScroll} ref={scrollRef} data-testid="scrolling-element" height={finalHeight}>
       <VListStyleInner>
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 700 }} aria-label="customized table">

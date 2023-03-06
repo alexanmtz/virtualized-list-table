@@ -1,13 +1,19 @@
-![This is an image](virtualized-lists.png)
+# Virtualized Lists with Table
 
-# Getting Started with Create React App
+Building a simple React Typescript app to build a virtualized list
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## What is a Virtualized List?
 
-In the project directory, you can run:
+![This is an image](virtualized-lists.png)
 
+Lists render a windowed list (row) of elements meaning that only the visible rows are displayed to users. In this case the Lists use a Table (internally) to render rows, relaying props to that inner Grid.
+
+
+## How to start the project
+
+### `npm i`
 ### `npm start`
 
 Runs the app in the development mode.\
@@ -31,18 +37,14 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Considerations
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
+- When I was creating the logic for the component, and ended build the Virtualized list based on React Virtulize: https://github.com/junqiuzhang/react-virtualize, and customizing for a table.
 
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+## To do
+- Calculate the scroll position to the bottom of the scrolling list, so when we add a new item goes to bottom

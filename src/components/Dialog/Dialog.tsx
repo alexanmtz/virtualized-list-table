@@ -7,20 +7,46 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import AddIcon from '@mui/icons-material/Add';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert, { AlertProps } from '@mui/material/Alert';
 
 type FormDialogProps = {
   onAdd: (data: any) => void;
 }
 
-export default function FormDialog({ onAdd }:FormDialogProps) {
-  const [open, setOpen] = React.useState(false);
-  const [ formValues, setFormValues ] = React.useState({});
+type formDataProps = {
+  name?: string;
+  label?: string;
+  type?: string;
+}
 
-  type formDataProps = {
-    name: string;
-    label: string;
-    type: string;
-  }
+type formValuesProps = {
+  name: string;
+  calories: number;
+  fat: number;
+  carbs: number;
+  protein: number;
+}
+
+const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
+  props,
+  ref,
+) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
+
+export default function FormDialog({ onAdd }:FormDialogProps) {
+  const [open, setOpen] = React.useState<boolean>(false);
+  const [ openSnack, setOpenSnack ] = React.useState<boolean>(false);
+  const [ formValid, setFormValid ] = React.useState<boolean>(true);
+  const [ formValues, setFormValues ] = React.useState<formValuesProps>({
+    name: '',
+    calories: 0,
+    fat: 0,
+    carbs: 0,
+    protein: 0,
+  });
+
 
   const formData:Array<formDataProps> = [
     {
@@ -58,14 +84,30 @@ export default function FormDialog({ onAdd }:FormDialogProps) {
     setOpen(false);
   };
 
+  const handleCloseSnack = () => {
+    setOpenSnack(false);
+  };
+
   const handleTextField = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setFormValues({ ...formValues, [name]: value });
   };
 
   const handleAdd = () => {
-    onAdd(formValues);
-    setOpen(false);
+    let formEmpty:boolean = false;
+    Object.values(formValues).forEach(values => {
+      if (values === '') {
+        formEmpty = true;
+      }
+    });
+    if(formEmpty) {
+      setFormValid(false);
+    } else {
+      onAdd(formValues);
+      setOpenSnack(true);
+      setOpen(false);
+      setFormValid(true);
+    }
   };
 
   return (
@@ -74,12 +116,18 @@ export default function FormDialog({ onAdd }:FormDialogProps) {
         Add new item
         <AddIcon />
       </Button>
+      <Snackbar open={openSnack} autoHideDuration={6000} onClose={handleClose}>
+        <Alert onClose={handleCloseSnack} severity="success" sx={{ width: '100%' }}>
+          Item added successfully!
+        </Alert>
+      </Snackbar>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Add new item</DialogTitle>
         <DialogContent>
           <DialogContentText>
             Add a new item to the diet
           </DialogContentText>
+          {!formValid && <Alert severity="error">Please fill all the fields with the right information</Alert>}
           {formData.map((data, index) =>
             <TextField
               name={data.name}
